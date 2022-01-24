@@ -4,7 +4,7 @@ A Flutter package for checking and building building widgets by form factor (des
 
 ## Setup
 
-To get started, call [FormFactor.init](https://pub.dev/documentation/platform_builder/latest/platform/Platform/init.html) with your desired breakpoints and a `navigatorKey` used to keep track of the current screen size:
+To get started, initialize the `FormFactor` instance with your desired breakpoints and a `navigatorKey` used to keep track of the current screen size:
 
 ```dart
 import 'package:form_factor_builder/form_factor_builder.dart';
