@@ -1,12 +1,6 @@
 # Form Factor Builder
 
-A Flutter library for performing form factor checks and building widgets by form factor.
-
-The supported form factors are:
-
-* desktop
-* tablet
-* mobile
+A Flutter package for checking and building building widgets by form factor (desktop, tablet, mobile).
 
 ## Setup
 
