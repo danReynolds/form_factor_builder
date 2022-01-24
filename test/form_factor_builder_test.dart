@@ -27,10 +27,8 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         navigatorKey: key,
-        home: FormFactorChangeListener(
-          child: FormFactorBuilder(
-            builder: (context) => greenTestWidget,
-          ),
+        home: FormFactorBuilder(
+          builder: (context) => greenTestWidget,
         ),
       ),
     );
@@ -56,11 +54,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         navigatorKey: key,
-        home: FormFactorChangeListener(
-          child: FormFactorBuilder(
-            builder: (context) => redTestWidget,
-            tabletBuilder: (context) => greenTestWidget,
-          ),
+        home: FormFactorBuilder(
+          builder: (context) => redTestWidget,
+          tabletBuilder: (context) => greenTestWidget,
         ),
       ),
     );
@@ -85,11 +81,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         navigatorKey: key,
-        home: FormFactorChangeListener(
-          child: FormFactorBuilder(
-            builder: (context) => redTestWidget,
-            desktopBuilder: (context) => greenTestWidget,
-          ),
+        home: FormFactorBuilder(
+          builder: (context) => redTestWidget,
+          desktopBuilder: (context) => greenTestWidget,
         ),
       ),
     );

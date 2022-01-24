@@ -27,6 +27,18 @@ class FormFactorBuilder extends StatefulWidget {
 }
 
 class _FormFactorBuilderState extends State<FormFactorBuilder> {
+  @override
+  initState() {
+    super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // If no form factor value has been set yet, report it after first build.
+      if (FormFactor.instance.value == null) {
+        FormFactor.instance.update();
+      }
+    });
+  }
+
   Builder? get _desktopBuilder {
     return widget.desktopBuilder ?? widget.builder;
   }

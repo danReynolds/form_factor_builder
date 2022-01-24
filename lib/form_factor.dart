@@ -22,12 +22,13 @@ class FormFactor {
   late FormFactorBreakpoints? breakpoints;
   late GlobalKey<NavigatorState> navigatorKey;
 
-  static final instance = FormFactor._();
+  static late FormFactor instance;
 
   static void init({
     FormFactorBreakpoints? breakpoints,
     required GlobalKey<NavigatorState> navigatorKey,
   }) {
+    instance = FormFactor._();
     instance.breakpoints = breakpoints;
     instance.navigatorKey = navigatorKey;
   }
