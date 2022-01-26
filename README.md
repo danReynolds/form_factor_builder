@@ -46,7 +46,7 @@ if (FormFactor.instance.isDesktop) {
 }
 ```
 
-The `FormFactorBuilder` widget makes it easy to build different widgets by form factor:
+The [FormFactorBuilder](https://pub.dev/documentation/form_factor_builder/latest/form_factor_builder/FormFactorBuilder-class.html) widget makes it easy to build different widgets by form factor:
 
 ```dart
 import 'package:form_factor_builder/form_factor_builder.dart';
@@ -69,11 +69,11 @@ The full list of builders you can specify are:
 * tabletBuilder
 * desktopBuilder
 
-The three more specific builders take precedence over the generic `builder` parameter, which can be used as a default if multiple form factors should share the same implementation.
+The three more specific builders take precedence over the generic [builder](https://pub.dev/documentation/form_factor_builder/latest/form_factor_builder/FormFactorBuilder/builder.html) parameter, which can be used as a default if multiple form factors should share the same implementation.
 
 ## Live updates
 
-If you need the form factor you build to live update as the device's screen size changes such as when changing the window size of a Flutter web application on desktop or rotating a tablet from potrait to landscape, then you can add the `FormFactorChangeListener` widget at the root of your app:
+If you need the form factor you build to live update as the device's screen size changes such as when changing the window size of a Flutter web application on desktop or rotating a tablet from potrait to landscape, then you can add the [FormFactorChangeListener](https://pub.dev/documentation/form_factor_builder/latest/form_factor_change_listener/FormFactorChangeListener-class.html) widget at the root of your app:
 
 ```dart
 import 'package:form_factor_builder/form_factor_builder.dart';
@@ -126,7 +126,7 @@ FormFactor.instance.stream((formFactor) {
 });
 ```
 
-To make this slightly simpler, the `FormFactor` API includes a `changes` stream that provides the current and previous value:
+To make this slightly simpler, you can use the `FormFactor` [changes](https://pub.dev/documentation/form_factor_builder/latest/form_factor/FormFactor/changes.html) stream, which provides the current and previous value:
 
 ```dart
 FormFactor.instance.changes((formFactors) {
