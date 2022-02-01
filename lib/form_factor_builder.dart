@@ -55,6 +55,7 @@ class _FormFactorBuilderState extends State<FormFactorBuilder> {
   build(context) {
     return StreamBuilder<FormFactors?>(
       stream: FormFactor.instance.stream,
+      initialData: FormFactor.instance.value,
       builder: (context, formFactorSnap) {
         if (!formFactorSnap.hasData) {
           return const SizedBox();
