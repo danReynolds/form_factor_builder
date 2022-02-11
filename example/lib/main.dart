@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
 
     FormFactor.instance.changes.listen((values) {
       // ignore: avoid_print
-      print('Form factor changed from ${values.first} to ${values.last}');
+      print('Form factor changed from ${values.current} to ${values.previous}');
     });
   }
 

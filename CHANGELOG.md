@@ -1,3 +1,7 @@
+## 0.3.0
+
+Replace RxDart with Restate.
+
 ## 0.2.1
 
 * Fix bug with unnecessary empty building

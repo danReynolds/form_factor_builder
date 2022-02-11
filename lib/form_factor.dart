@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:restate/state_bloc.dart';
+import 'package:restate/state_change_tuple.dart';
 
 enum FormFactors { mobile, tablet, desktop }
 
@@ -16,9 +17,7 @@ class FormFactorBreakpoints {
 class FormFactor {
   FormFactor._();
 
-  FormFactors? _prevFormFactor;
-
-  final _subject = BehaviorSubject<FormFactors?>();
+  final _stateBloc = StateBloc<FormFactors>();
   late FormFactorBreakpoints? breakpoints;
   late GlobalKey<NavigatorState> navigatorKey;
 
@@ -46,25 +45,21 @@ class FormFactor {
 
   void update() {
     final updatedFormFactor = _formFactor;
-    if (updatedFormFactor != instance._subject.valueOrNull) {
-      _subject.add(updatedFormFactor);
+    if (updatedFormFactor != instance._stateBloc.value) {
+      _stateBloc.add(updatedFormFactor);
     }
   }
 
   FormFactors? get value {
-    return _subject.valueOrNull;
+    return _stateBloc.value;
   }
 
   Stream<FormFactors?> get stream {
-    return _subject.stream;
+    return _stateBloc.stream;
   }
 
-  Stream<List<FormFactors?>> get changes {
-    return _subject.stream
-        .map((formFactor) => [formFactor, _prevFormFactor])
-        .doOnData((formFactor) {
-      _prevFormFactor = formFactor.first;
-    });
+  Stream<StateChangeTuple<FormFactors?>> get changes {
+    return _stateBloc.changes;
   }
 
   bool get isMobile {
