@@ -130,7 +130,7 @@ To make this slightly simpler, you can use the `FormFactor` [changes](https://pu
 
 ```dart
 FormFactor.instance.changes((formFactors) {
-  if (formFactor.first == FormFactors.mobile && formFactors.last == FormFactors.desktop) {
+  if (formFactor.current == FormFactors.mobile && formFactors.previous == FormFactors.desktop) {
     Navigator.of(context).pushReplacement(...);
   }
 });
