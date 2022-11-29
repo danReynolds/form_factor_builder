@@ -5,6 +5,7 @@ import 'package:form_factor_builder/form_factor.dart';
 
 export 'package:form_factor_builder/form_factor.dart';
 export 'package:form_factor_builder/form_factor_change_listener.dart';
+export 'package:form_factor_builder/form_factor_resolver.dart';
 
 typedef Builder = Widget Function(BuildContext context);
 
@@ -31,7 +32,7 @@ class _FormFactorBuilderState extends State<FormFactorBuilder> {
   initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       // If no form factor value has been set yet, report it after first build.
       if (FormFactor.instance.value == null) {
         FormFactor.instance.update();

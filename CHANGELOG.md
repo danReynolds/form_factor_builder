@@ -1,3 +1,7 @@
+## 0.4.0
+
+Add `FormFactorResolver` class for easily resolving values by form factor.
+
 ## 0.3.0
 
 Replace RxDart with Restate.
