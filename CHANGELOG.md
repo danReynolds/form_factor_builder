@@ -1,3 +1,7 @@
+## 0.5.0
+
+Internal refactors.
+
 ## 0.4.0
 
 Add `FormFactorResolver` class for easily resolving values by form factor.
