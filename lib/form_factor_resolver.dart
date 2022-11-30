@@ -13,7 +13,20 @@ class FormFactorResolver<T> {
     this.tabletResolver,
     this.desktopResolver,
     this.resolver,
-  });
+    Set<FormFactors>? supportedFormFactors,
+  }) {
+    supportedFormFactors ??= FormFactor.instance.supportedFormFactors;
+
+    if (supportedFormFactors.contains(FormFactors.mobile)) {
+      assert(_mobile != null, 'Missing mobile resolver');
+    }
+    if (supportedFormFactors.contains(FormFactors.tablet)) {
+      assert(_tablet != null, 'Missing tablet resolver');
+    }
+    if (supportedFormFactors.contains(FormFactors.desktop)) {
+      assert(_desktop != null, 'Missing desktop resolver');
+    }
+  }
 
   static T current<T>({
     T Function()? mobileResolver,
@@ -41,27 +54,27 @@ class FormFactorResolver<T> {
     }
   }
 
+  T Function()? get _mobile {
+    return mobileResolver ?? resolver;
+  }
+
+  T Function()? get _tablet {
+    return tabletResolver ?? resolver;
+  }
+
+  T Function()? get _desktop {
+    return desktopResolver ?? resolver;
+  }
+
   T get mobile {
-    assert(
-      mobileResolver != null || resolver != null,
-      'Missing mobile resolver',
-    );
-    return mobileResolver?.call() ?? resolver!();
+    return _mobile!();
   }
 
   T get tablet {
-    assert(
-      tabletResolver != null || resolver != null,
-      'Missing tablet resolver',
-    );
-    return tabletResolver?.call() ?? resolver!();
+    return _tablet!();
   }
 
   T get desktop {
-    assert(
-      desktopResolver != null || resolver != null,
-      'Missing desktop resolver',
-    );
-    return desktopResolver?.call() ?? resolver!();
+    return _desktop!();
   }
 }

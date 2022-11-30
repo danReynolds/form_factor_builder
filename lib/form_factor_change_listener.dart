@@ -17,7 +17,7 @@ class FormFactorChangeListener extends StatefulWidget {
 class _FormFactorChangeListenerState extends State<FormFactorChangeListener> {
   @override
   build(context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       // The MediaQuery InheritedWidget `of` API must be read in this widget
       // so that it knows to rebuild this widget whenever the MediaQuery value
       // (such as the dimensions of the screen) change.

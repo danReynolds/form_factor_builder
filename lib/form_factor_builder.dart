@@ -2,18 +2,19 @@ library form_factor_builder;
 
 import 'package:flutter/material.dart';
 import 'package:form_factor_builder/form_factor.dart';
+import 'package:form_factor_builder/form_factor_resolver.dart';
 
 export 'package:form_factor_builder/form_factor.dart';
 export 'package:form_factor_builder/form_factor_change_listener.dart';
 export 'package:form_factor_builder/form_factor_resolver.dart';
 
-typedef Builder = Widget Function(BuildContext context);
+typedef _Builder = Widget Function(BuildContext context);
 
 class FormFactorBuilder extends StatefulWidget {
-  final Builder? builder;
-  final Builder? mobileBuilder;
-  final Builder? tabletBuilder;
-  final Builder? desktopBuilder;
+  final _Builder? builder;
+  final _Builder? mobileBuilder;
+  final _Builder? tabletBuilder;
+  final _Builder? desktopBuilder;
 
   const FormFactorBuilder({
     this.mobileBuilder,
@@ -40,16 +41,11 @@ class _FormFactorBuilderState extends State<FormFactorBuilder> {
     });
   }
 
-  Builder? get _desktopBuilder {
-    return widget.desktopBuilder ?? widget.builder;
-  }
-
-  Builder? get _tabletBuilder {
-    return widget.tabletBuilder ?? widget.builder;
-  }
-
-  Builder? get _mobileBuilder {
-    return widget.mobileBuilder ?? widget.builder;
+  _Builder Function()? _builderToResolver(_Builder? builder) {
+    if (builder != null) {
+      return () => builder;
+    }
+    return null;
   }
 
   @override
@@ -62,27 +58,14 @@ class _FormFactorBuilderState extends State<FormFactorBuilder> {
           return const SizedBox();
         }
 
-        final formFactor = formFactorSnap.data!;
-        final breakpoints = FormFactor.instance.breakpoints;
-
-        assert(_mobileBuilder != null, 'Missing mobile builder');
-        assert(
-          breakpoints?.tablet == null || _tabletBuilder != null,
-          'Missing tablet builder',
-        );
-        assert(
-          breakpoints?.desktop == null || _desktopBuilder != null,
-          'Missing desktop builder',
+        final resolver = FormFactorResolver<_Builder>(
+          desktopResolver: _builderToResolver(widget.desktopBuilder),
+          tabletResolver: _builderToResolver(widget.tabletBuilder),
+          mobileResolver: _builderToResolver(widget.mobileBuilder),
+          resolver: _builderToResolver(widget.builder),
         );
 
-        switch (formFactor) {
-          case FormFactors.mobile:
-            return _mobileBuilder!(context);
-          case FormFactors.tablet:
-            return _tabletBuilder!(context);
-          case FormFactors.desktop:
-            return _desktopBuilder!(context);
-        }
+        return resolver.resolve()(context);
       },
     );
   }

@@ -50,6 +50,14 @@ class FormFactor {
     }
   }
 
+  Set<FormFactors> get supportedFormFactors {
+    return {
+      FormFactors.mobile,
+      if (breakpoints?.tablet != null) FormFactors.tablet,
+      if (breakpoints?.desktop != null) FormFactors.desktop,
+    };
+  }
+
   FormFactors? get value {
     return _stateBloc.value;
   }
