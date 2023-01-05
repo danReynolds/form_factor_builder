@@ -1,3 +1,7 @@
+## 0.5.1
+
+Bump lib
+
 ## 0.5.0
 
 Internal refactors.

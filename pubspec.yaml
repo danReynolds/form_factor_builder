@@ -1,6 +1,6 @@
 name: form_factor_builder
 description: A Flutter package for checking and building building widgets by form factor (desktop, tablet, mobile).
-version: 0.5.0
+version: 0.5.1
 homepage: https://github.com/danReynolds/form_factor_builder
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  restate: ^0.0.6
+  restate: ^0.3.0
 
 dev_dependencies:
   flutter_test:
