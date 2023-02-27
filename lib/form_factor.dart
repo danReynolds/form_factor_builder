@@ -2,7 +2,27 @@ import 'package:flutter/widgets.dart';
 import 'package:restate/state_bloc.dart';
 import 'package:restate/state_change_tuple.dart';
 
-enum FormFactors { mobile, tablet, desktop }
+enum FormFactors {
+  mobile,
+  tablet,
+  desktop;
+
+  bool operator <(Enum other) {
+    return index < other.index;
+  }
+
+  bool operator <=(Enum other) {
+    return index <= other.index;
+  }
+
+  bool operator >=(Enum other) {
+    return index >= other.index;
+  }
+
+  bool operator >(Enum other) {
+    return index > other.index;
+  }
+}
 
 class FormFactorBreakpoints {
   final int? tablet;
