@@ -1,3 +1,7 @@
+## 0.6.0
+
+Add support for orientation detection.
+
 ## 0.5.1
 
 Bump lib

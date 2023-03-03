@@ -44,7 +44,7 @@ class FormFactorResolver<T> {
 
   /// Resolves the value for the given form factor by precedence, defaulting to the current form factor.
   T resolve([FormFactors? formFactor]) {
-    switch (formFactor ?? FormFactor.instance.value!) {
+    switch (formFactor ?? FormFactor.instance.value) {
       case FormFactors.mobile:
         return mobile;
       case FormFactors.tablet:

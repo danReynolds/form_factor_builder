@@ -2,7 +2,27 @@ import 'package:flutter/widgets.dart';
 import 'package:restate/state_bloc.dart';
 import 'package:restate/state_change_tuple.dart';
 
-enum FormFactors { mobile, tablet, desktop }
+enum FormFactors {
+  mobile,
+  tablet,
+  desktop;
+
+  bool operator <(Enum other) {
+    return index < other.index;
+  }
+
+  bool operator <=(Enum other) {
+    return index <= other.index;
+  }
+
+  bool operator >=(Enum other) {
+    return index >= other.index;
+  }
+
+  bool operator >(Enum other) {
+    return index > other.index;
+  }
+}
 
 class FormFactorBreakpoints {
   final int? tablet;
@@ -17,7 +37,8 @@ class FormFactorBreakpoints {
 class FormFactor {
   FormFactor._();
 
-  final _stateBloc = StateBloc<FormFactors>();
+  final _formFactorBloc = StateBloc<FormFactors>();
+  final _orientationBloc = StateBloc<Orientation>();
   late FormFactorBreakpoints? breakpoints;
   late GlobalKey<NavigatorState> navigatorKey;
 
@@ -32,7 +53,24 @@ class FormFactor {
     instance.navigatorKey = navigatorKey;
   }
 
-  FormFactors get _formFactor {
+  void update() {
+    final updatedFormFactor = value;
+    final updatedOrientation = orientation;
+
+    if (updatedFormFactor != instance._formFactorBloc.value) {
+      _formFactorBloc.add(updatedFormFactor);
+    }
+
+    if (updatedOrientation != instance._orientationBloc.value) {
+      _orientationBloc.add(orientation);
+    }
+  }
+
+  bool get isInitialized {
+    return _formFactorBloc.value != null;
+  }
+
+  FormFactors get value {
     final width = MediaQuery.of(navigatorKey.currentContext!).size.width;
 
     if (breakpoints?.desktop != null && width >= breakpoints!.desktop!) {
@@ -43,11 +81,13 @@ class FormFactor {
     return FormFactors.mobile;
   }
 
-  void update() {
-    final updatedFormFactor = _formFactor;
-    if (updatedFormFactor != instance._stateBloc.value) {
-      _stateBloc.add(updatedFormFactor);
+  Orientation get orientation {
+    final size = MediaQuery.of(navigatorKey.currentContext!).size;
+
+    if (size.width > size.height) {
+      return Orientation.landscape;
     }
+    return Orientation.portrait;
   }
 
   Set<FormFactors> get supportedFormFactors {
@@ -58,27 +98,31 @@ class FormFactor {
     };
   }
 
-  FormFactors? get value {
-    return _stateBloc.value;
-  }
-
   Stream<FormFactors?> get stream {
-    return _stateBloc.stream;
+    return _formFactorBloc.stream;
   }
 
   Stream<StateChangeTuple<FormFactors?>> get changes {
-    return _stateBloc.changes;
+    return _formFactorBloc.changes;
   }
 
   bool get isMobile {
-    return _formFactor == FormFactors.mobile;
+    return value == FormFactors.mobile;
   }
 
   bool get isTablet {
-    return _formFactor == FormFactors.tablet;
+    return value == FormFactors.tablet;
   }
 
   bool get isDesktop {
-    return _formFactor == FormFactors.desktop;
+    return value == FormFactors.desktop;
+  }
+
+  bool get isPortrait {
+    return orientation == Orientation.portrait;
+  }
+
+  bool get isLandscape {
+    return orientation == Orientation.landscape;
   }
 }
