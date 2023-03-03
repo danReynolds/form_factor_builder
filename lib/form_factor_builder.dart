@@ -35,7 +35,7 @@ class _FormFactorBuilderState extends State<FormFactorBuilder> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // If no form factor value has been set yet, report it after first build.
-      if (FormFactor.instance.value == null) {
+      if (!FormFactor.instance.isInitialized) {
         FormFactor.instance.update();
       }
     });
